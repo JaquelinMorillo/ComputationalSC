@@ -1,0 +1,96 @@
+---
+title: "Tarea 1 - Ciencias Sociales Computacionales"
+author: "Jaquelin M. Morillo Remesnitzky"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Resumen propensity score matching 
+"https://mixtape.scunning.com/05-matching_and_subclassification#propensity-score-methods"
+
+#### Subclasificación
+
+<div style="text-align: justify">
+En el texto se evidencian tres tipos diferentes de estrategias de condicionamiento: la ***subclasificación***, la ***coincidencia exacta*** y la ***coincidencia aproximada***.
+<div/>
+<br>
+<div style="text-align: justify">
+La ***subclasificación*** método fue creado por estadísticos, destacándose Cochran (1968), y aunque los métodos más modernos lo han superado, los autores lo incluyen porque algunas de sus técnicas implícitas están presentes en mecanismos más modernos. Éste es un método para satisfacer el criterio de la puerta trasera mediante la ponderación de las diferencias de las medias por pesos específicos de los estratos. Estas ponderaciones específicas ajustarán, a su vez, las diferencias de las medias para que su distribución por estratos sea la misma que la de los estratos del contrafactual.De esta forma, este método logra implícitamente el equilibrio distributivo entre el tratamiento y el control en términos de ese factor de confusión conocido y observable. 
+<div/>
+<br>
+<div style="text-align: justify">
+El concepto de la hipótesis de independencia condicional (CIA) implica que la aleatorización se produzca sólo condicionada por algunas características observables (Krueger, 1999), como potencial solución para estos problemas es ideal estimar modelos de regresión que incluyan un efectos fijos como lo ilustra la siguiente ecuación:
+<div/>
+
+$$(Y^{1}, Y^{0})\perp\!\!\!\perp D\mid X$$
+<div style="text-align: justify">
+Dónde $\perp\!\!\!\perp$ implica idependencia estadística, $X$  la variable sobre la cual se condiciona, implicando que los valores esperados de $Y^{1}$ e $Y^{0}$ son iguales para el grupo de tratamiento y el de control para cada valor de $X$. Matematicamente: 
+<div/>
+<br>
+
+$$E\left [Y^{1}\mid D=1,X\right] =E\left [Y^{1}\mid D=0, X\right]$$
+$$E\left [Y^{0}\mid D=1,X\right] =E\left [Y^{0}\mid D=0, X\right]$$
+<div style="text-align: justify">
+En este sentido, destacan dos elementos: En primer lugar, en la medida en que el CIA es creíble, entonces el CIA significa que se ha encontrado una estrategia de condicionamiento que satisface el criterio de la puerta trasera. En segundo lugar, cuando la asignación del tratamiento ha sido condicionada por variables observables, se trata de una situación de selección sobre observables. 
+<div/>
+<br>
+<div style="text-align: justify">
+La conexión entre el supuesto de independencia y las características de los grupos se llama ***equilibrio***. Si las medias de las covariables son las mismas para cada grupo, entonces decimos que esas covariables están ***equilibradas*** y los dos grupos son ***intercambiables*** con respecto a esas covariables.
+<div/>
+<br>
+<div style="text-align: justify">
+Asimismo, puede suceder que existan otras variables que estén condicionando tanto a $D$ como a $Y$, tal y como es posible observar en el siguiente DAG:
+<div/>
+<br>
+```{r, echo=FALSE, out.width="20%", fig.align='center'}
+knitr::include_graphics("https://mixtape.scunning.com/05-Matching_and_Subclassification_files/figure-html/unnamed-chunk-3-1.png")
+```
+
+Donde $D$ es el tratamiento, $Y$ la variable a explicar y $A$ la variable que condiciona a ambas (factor de confusión). De esta forma, en la medida que se viola CIA queda una puerta trasera abierta y, en este caso, uan variable de interés omitida (sesgo de variable omitida). Es a lo menos posible que el factor de confusión $A$ esté desvalanceada; de esta forma, para abordar este problema de desequilibrio de covariables debería condicionarse $A$ de tal forma que fuese comparable entre los grupos de tratamiento y control, es decir, si es necesario, estratificar la variable en tramos y luego calcular el efecto del tratamiento por el peso específico del estrato del grupo de control. Este método para ponderar los pesos relativos de los estratos es la estrategia de condicionamiento ***subclasificación*** (Cochran, 1968). 
+
+<div style="text-align: justify">
+Este tipo de ajuste nos sugiere preguntarnos ¿qué variable(s) debemos utilizar para el ajuste? En este sentido, debemos elegir un conjunto de variables que satisfagan el criterio de puerta trasera. Si el criterio de la puerta trasera se cumple, entonces todos los caminos de la puerta trasera se cierran, y si eso sucede, entonces se consigue la CIA. Nuuestra variable $A$ puede ser llamada ***covariable*** o ***exógena*** Una covariable suele ser una variable aleatoria asignada a las unidades individuales antes del tratamiento. Es importante destacar que esta variable no debe ser también un colisionador. Una variable es exógena con respecto a $D$ si el valor de $X$ no depende del valor de $D$. A menudo, aunque no siempre y no necesariamente, esta variable será invariable en el tiempo. Como conclusión, cuando busque ajustar un factor de confusión utilizando la subclasificación, se debe considerar un DAG creíble para ayudar a guiar la selección de variables y tener siempre presente el criterio de la puerta trasera.    
+<div/>
+<br>
+
+#### Identificación de Supuestos
+
+
+<div style="text-align: justify">
+Entonces, para estimar un efecto causal cuando hay un factor de confusión, es necesario  que (1) el CIA y (2) la probabilidad de tratamiento estén entre 0 y 1 para cada estrato:
+<div/>
+
+$$(1) \quad E\left [Y^{1}\mid D=1,X\right] =E\left [Y^{1}\mid D=0, X\right]\qquad  (Independencia\quad condicional)$$
+$$(2)\quad 0< Pr(D=1\mid X)< 1\qquad  (Common\quad support)$$
+
+A partir de estos supuestos obtengo que:
+$$ E\left [Y^{1}-Y^{0}\mid X\right] =E\left [Y\mid X,\quad D=1\right]-E\left [Y\mid X,\quad D=0\right] $$
+<div style="text-align: justify">
+Donde cada valor de $Y$ está determinado por la ecuación de conmutación. Dado el _common support_, obtenemos el siguiente estimador:
+<div/>
+$$\widehat{\delta ATE} =\int \left (E\left [Y\mid X,\quad D=1\right]-E\left [Y\mid X,\quad D=0\right] \right )drR(X)$$
+<br>
+
+<div style="text-align: justify">
+Mientras que es necesario que el tratamiento sea condicionalmente independiente de ambos resultados potenciales para identificar el ATE, sólo se requiere que el tratamiento sea condicionalmente independiente de $Y^{0}$ para identificar el ATT y el hecho de que existan algunas unidades en el grupo de control para cada estrato de tratamiento. En este sentido, es importante destacar que la razón del _common support_ es que estamos ponderando los datos; sin _common support_, no podemos calcular las ponderaciones pertinentes.
+<div/>
+
+#### La maldición de la Dimensionalidad
+
+<div style="text-align: justify">
+
+<div/>
+<br>
+
+
+
+
+
+
+
+
+

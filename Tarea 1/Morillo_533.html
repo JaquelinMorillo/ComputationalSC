@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Jaquelin M. Morillo Remesnitzky" />
+
+<meta name="date" content="2022-11-30" />
+
+<title>Tarea 1 - Ciencias Sociales Computacionales</title>
+
+<script src="Morillo_533_files/header-attrs-2.14/header-attrs.js"></script>
+<script src="Morillo_533_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="Morillo_533_files/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="Morillo_533_files/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="Morillo_533_files/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="Morillo_533_files/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="Morillo_533_files/navigation-1.1/tabsets.js"></script>
+<link href="Morillo_533_files/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="Morillo_533_files/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Tarea 1 - Ciencias Sociales
+Computacionales</h1>
+<h4 class="author">Jaquelin M. Morillo Remesnitzky</h4>
+<h4 class="date">2022-11-30</h4>
+
+</div>
+
+
+<div id="resumen-propensity-score-matching" class="section level3">
+<h3>1. Resumen propensity score matching</h3>
+<p><a
+href="https://mixtape.scunning.com/05-matching_and_subclassification#propensity-score-methods"
+class="uri">https://mixtape.scunning.com/05-matching_and_subclassification#propensity-score-methods</a></p>
+<p><em>Github:</em> <a
+href="https://github.com/JaquelinMorillo/ComputationalSC/tree/main/Tarea%201"
+class="uri">https://github.com/JaquelinMorillo/ComputationalSC/tree/main/Tarea%201</a></p>
+<div style="text-align: justify">
+Uno de los problemas mas frecuentes que se presentan al inferir
+causalidad es el camino de la puerta trasera causado por factores de
+confusion. Si cuento con, al menos, tres variables aleatorias <span
+class="math inline">\(X\)</span>,<span class="math inline">\(D\)</span>,
+e <span class="math inline">\(Y\)</span>. Segun el DAG que se presenta a
+continuación, hay un camino directo desde <span
+class="math inline">\(D\)</span> hasta <span
+class="math inline">\(Y\)</span> , que representa un efecto causal. No
+obstante, también hay un segundo camino desde <span
+class="math inline">\(D\)</span> hasta <span
+class="math inline">\(Y\)</span> mediado por <span
+class="math inline">\(X\)</span> llamado camino de puerta trasera.
+Mientras que el camino directo es un efecto causal, el camino trasero no
+implica causalidad. Más bien, es un proceso que crea correlaciones
+espurias entre <span class="math inline">\(D\)</span> e <span
+class="math inline">\(Y\)</span> que son impulsadas únicamente por las
+fluctuaciones de la variable aleatoria <span
+class="math inline">\(X\)</span>.
+<div/>
+
+<p><br>
+<img src="https://mixtape.scunning.com/03-Directed_Acyclical_Graphs_files/figure-html/simple_dag-1.png" width="20%" style="display: block; margin: auto;" />
+<br></p>
+<div style="text-align: justify">
+Con el fin de solventar este problema existen diferentes estrategias de
+condicionamiento, sin embargo, una de las más populares es el
+<strong><em>Propensity Score Matching</em></strong> (PSM) desarrollado
+por Donald Rubin (1977). Este mecanismo es más utilizado por algunas
+disciplinas que otras; por ejemplo en el área de la salud que es más
+frecuente que en el campo de las ciencias sociales, principalmente
+porque los economistas suelen ser escépticos en cuanto a la posibilidad
+de cumplir con la <strong><em>hipótesis de independencia
+condicional</em></strong> (CIA, por sus siglas en inglés) en cualquier
+conjunto de datos. La CIA, implica que la aleatorización se produzca
+sólo condicionada por algunas características observables (Krueger,
+1999). Aún así, la estrategia de identificación debe ser coherente con
+el diseño teórico y metodológico y el propósoto de la
+investigación.<br />
+
+<div/>
+<p><br></p>
+<div style="text-align: justify">
+El PSM, es una de las estrategias de identificación que nos permite
+lidiar con el camino de la puerta trasera. Para ello, toma las
+covariables necesarias, estima un modelo de máxima verosimilitud de la
+probabilidad condicional del tratamiento (normalmente un logit o probit
+para asegurar que los valores ajustados están limitados entre 0 y 1), y
+utiliza los valores predichos de esa estimación para colapsar esas
+covariables en un único escalar llamado <strong><em>Propensity
+Score</em></strong> (PS). Todas las comparaciones entre el grupo de
+tratamiento y el de control se basan entonces en ese valor.
+<div/>
+<p><br></p>
+<div style="text-align: justify">
+La idea del PSM es comparar unidades que, basándose en los observables,
+tenían probabilidades muy similares de ser colocadas en el grupo de
+tratamiento, aunque esas unidades difieran con respecto a la asignación
+real del tratamiento. Si, condicionado a <span
+class="math inline">\(X\)</span>, dos unidades tienen la misma
+probabilidad de ser tratadas, entonces decimos que tienen puntuaciones
+de propensión similares, y toda la variación restante en la asignación
+del tratamiento se debe al azar. Y en la medida en que las dos unidades
+A y B tienen la misma puntuación de propensión de 0,6, pero una es el
+grupo de tratamiento y la otra no, y el supuesto de independencia
+condicional se mantiene de forma creíble en los datos, entonces las
+diferencias entre sus resultados observados son atribuibles al
+tratamiento.
+<div/>
+<p><br></p>
+<div style="text-align: justify">
+Uno de los elementos a considerar es el <em>Common Support</em> (CS), es
+decir, que la probabilidad de tratamiento estén entre 0 y 1 para cada
+estrato de interés. En este sentido, el CS requiere que haya unidades en
+el grupo de tratamiento y de control en la puntuación de (PS). La
+puntuación de propensión puede utilizarse para comprobar el equilibrio
+de las covariables entre el grupo de tratamiento y el grupo de control,
+de forma que los dos grupos sean equivalentes desde el punto de vista de
+la observación.
+<div/>
+<p><br></p>
+</div>
+<div id="replicación-ejemplo-the-nsw-job-training-program"
+class="section level3">
+<h3>2. Replicación Ejemplo: The NSW job training program</h3>
+<div style="text-align: justify">
+El programa de formación laboral National Supported Work Demonstration
+(NSW) era un programa de empleo temporal diseñado para ayudar a los
+trabajadores desfavorecidos que carecían de habilidades laborales
+básicas a entrar en el mercado laboral, dándoles experiencia laboral y
+asesoramiento en un entorno protegido. El grupo de tratamiento recibió
+todos los beneficios del programa NSW, por su parte al grupo de control
+no se le proporcionó ningún tipo de instrucción o apoyo. Posteriormente,
+se recopiló información demográfica y de ingresos tanto del grupo de
+tratamiento como del grupo de control en la línea de base, así como cada
+nueve meses a partir de entonces. El NSW era un programa de formación
+laboral aleatorio; por lo tanto, se cumplía el supuesto de
+independencia. Por lo tanto, el cálculo de los efectos medios del
+tratamiento fue el estimador de la diferencia de medias.
+<div/>
+<p><br></p>
+<div style="text-align: justify">
+Una vez concluido el programa, los ingresos reales de los participantes
+del grupo de tratamiento después de participar del NSW fueron superiores
+a los ingresos del grupo de control entre 900 dólares (Lalonde 1986) a
+1.800 dólares (Dehejia y Wahba 2002) aproximadamente. Sin embargo, estos
+resultados fueron erroneos a causa del sesgo de selección:
+<div/>
+<br> <span class="math display">\[E\left [Y^{1}\mid D=1\right] \neq
+E\left [Y^{1}\mid D=0\right]\qquad  (Sesgo\quad de\quad
+selección)\]</span> <br>
+<div style="text-align: justify">
+La violación de la independencia también implica que las covariables
+estarán desequilibradas en el PS, perdiendo la <strong><em>propiedad de
+equilibrio</em></strong>.Entre los participantes del NWS hay más
+afroamericanos, más hispanos, más jóvenes, tienen menos probabilidades
+de estar casados, más probabilidades de no tener un título y menos
+estudios, más probabilidades de estar desempleados y más probabilidades
+de tener ingresos considerablemente inferiores cuando partió el
+programa. En resumen, los dos grupos no son intercambiables en cuanto a
+los observables.
+<div/>
+<p><br></p>
+<div style="text-align: justify">
+Por su parte, y luuego de los erráticos intentos de Lalonde (1986),
+Dehejia y Wahba (1999) fueron pioneros en analizar este proceso social
+utilizando el PMS. En primer lugar, los autores estimaron el propensity
+score utilizando un modelo de máxima verosimilitud. Una vez que tuvieron
+la puntuación de propensión estimada, compararon las unidades de
+tratamiento con las de control dentro de los intervalos del propensity
+score. Este proceso de comprobar si hay unidades tanto en el tratamiento
+como en el control para los intervalos del propensity score se denomina
+comprobación del common support. Con el PS estimado calculado, Dehejia y
+Wahba (1999) estimaron el efecto del tratamiento en los ingresos reales
+de 1978 utilizando el grupo de tratamiento experimental en comparación
+con el grupo de control no experimental y concluyeron el programa NSW
+hizo que los ingresos aumentaran entre 1.672 y 1.794 dólares,
+dependiendo de si se incluyeron covariables exógenas en las regresiones
+obteniendo estimaciones muy significativas estadísticamente.
+<div/>
+<p><br></p>
+<div style="text-align: justify">
+A continuación se calculó el efecto medio del tratamiento a partir del
+experimento real. Utilizando el código provisto en el ejemplo, se
+obtiene que el programa de formación laboral de NSW hizo que los
+ingresos reales en 1978 aumentaran en, aproximadamente 1974 dólares.
+<div/>
+<p><br></p>
+<div style="text-align: justify">
+Acto seguido, en lugar de utilizar el grupo de control experimental del
+experimento aleatorio original, el script provisto en el texto sugiere
+considerar el grupo de control no experimental a partir de los datos de
+la Current Population Survey. Es muy importante destacar que, mientras
+que el grupo de tratamiento es un grupo experimental, el grupo de
+control consiste ahora en una muestra aleatoria de estadounidenses de
+ese periodo de tiempo. Por lo tanto, el grupo de control sufre un sesgo
+de selección extremo, ya que la mayoría de los estadounidenses no
+funcionarían como contrafactuales para el grupo de trabajadores que se
+seleccionó en el programa NSW.
+<div/>
+<p><br></p>
+<p><img src="Morillo_533_files/figure-html/unnamed-chunk-14-1.png" width="672" /><img src="Morillo_533_files/figure-html/unnamed-chunk-14-2.png" width="672" /></p>
+<div style="text-align: justify">
+En este sentido, se obtiene que el PS del grupo de control es de 0.0066
+mientras que el PS del grupo de tratamiento es de 0.4253. El propensity
+score son los valores ajustados del modelo logit. Es decir, se
+utilizaron los coeficientes estimados de esa regresión logit para
+estimar la probabilidad condicional de tratamiento, asumiendo que las
+probabilidades se basan en la distribución logística acumulativa:
+<div/>
+<p><br></p>
+<p><span class="math display">\[Pr(D=1\mid X)= F (\beta + \gamma
+Tratamiento + \alpha X)\]</span></p>
+<div style="text-align: justify">
+Donde <span class="math inline">\(F () = \frac{exp(z)}{1+
+exp(z)}\)</span> es la función de distribución acumulativa logística
+estándar y <span class="math inline">\(X\)</span> son las covariables
+exógenas que se incluyen en el modelo.
+<div/>
+<p><br></p>
+<div style="text-align: justify">
+El PS utiliza los valores ajustados de la regresión de máxima
+verosimilitud para calcular la probabilidad condicional de tratamiento
+de cada unidad, independientemente del estado de tratamiento real. El PS
+no es más que la probabilidad condicional de tratamiento previstO o el
+valor ajustado para cada unidad. Es aconsejable utilizar la máxima
+verosimilitud al estimar la puntuación de propensión para que los
+valores ajustados estén en el rango [0,1].
+<div/>
+<p><br></p>
+<div style="text-align: justify">
+Como se explicó anteriormente, para estimar un efecto causal cuando hay
+un factor de confusión, es necesario que (1) la CIA y (2) la
+probabilidad de tratamiento estén entre 0 y 1 para cada estrato:
+<div/>
+
+<p><span class="math display">\[(1) \quad E\left [Y^{1}\mid D=1,X\right]
+=E\left [Y^{1}\mid D=0, X\right]\qquad  (Independencia\quad
+condicional)\]</span></p>
+<p><span class="math display">\[(2)\quad 0&lt; Pr(D=1\mid X)&lt;
+1\qquad  (Common\quad support)\]</span> <br></p>
+<div style="text-align: justify">
+El common support es necesario para calcular cualquier tipo de efecto de
+tratamiento medio definido, y sin él, sólo se obtendrá un average
+treatment effect “extraño” sólo para aquellas regiones que tienen common
+support. La razón por la que es “extraño” es que el efecto medio del
+tratamiento (ATT ) no se corresponde con ninguno de los efectos de
+tratamiento interesantes que se necesitaban al evaluar el programa. La
+lección es que, si los dos grupos son significativamente diferentes en
+cuanto a las características de fondo, las puntuaciones de propensión
+tendrán distribuciones muy diferentes según el estado de tratamiento.
+Como conclusión, condicionada a la puntuación de propensión, la
+distribución de las covariables debe ser la misma para las unidades del
+tratamiento que para las del grupo de control.
+<div/>
+
+<p><br>
+<img src="https://mixtape.scunning.com/05-Matching_and_Subclassification_files/figure-html/unnamed-chunk-24-1.png" width="20%" style="display: block; margin: auto;" />
+<br></p>
+<div style="text-align: justify">
+Es evidente que existen dos caminos entre X y D. Está el camino directo
+de X a D, y está el camino de la puerta trasera. El camino de la puerta
+trasera está bloqueado por un colisionador, por lo que no hay
+correlación sistemática entre X y D a través de él. Pero hay una
+correlación sistemática entre X y D a través del primer camino dirigido.
+En resumen, el Teorema del propensity score implica covariables
+observables balanceadas.
+<div/>
+<p><br></p>
+<div id="ponderación-del-propensity-score" class="section level4">
+<h4>2.1. Ponderación del Propensity Score</h4>
+<div style="text-align: justify">
+Hay varias formas en que los investigadores pueden estimar los efectos
+medios del tratamiento utilizando el PS estimado. Asumienod que nuestras
+datos cumplen con la CIA, una forma de estimar los efectos del
+tratamiento es utilizar un procedimiento de <strong><em>Weighting
+Propensity Score</em></strong> (WPS) en el que el PS de cada individuo
+es una ponderación del resultado de ese individuo (Imbens 2000). Cuando
+se agrega, esto tiene el potencial de identificar algún efecto medio del
+tratamiento.
+<div/>
+<p><br></p>
+<div style="text-align: justify">
+Existen diferentes opciones para estimar la varianza de este estimador,
+pero una de ellas es utilizar el bootstraping (procedimiento utilizado
+para estimar la varianza de un estimador). Hirano e Imbens (2001)
+proponen un estimador de ponderación de probabilidad inversa del efecto
+medio del tratamiento que asigna pesos normalizados por la suma de las
+puntuaciones de propensión para los grupos tratados y de control, en
+lugar de pesos iguales de <span
+class="math inline">\(\frac{1}{N}\)</span> para cada observación. Sus
+ponderaciones suman uno dentro de cada grupo, lo que tiende a hacerlo
+más estable.
+<div/>
+
+<p><br></p>
+<div style="text-align: justify">
+Estimando el efecto del tratamiento mediante la ponderación
+probabilística inversa utilizando el procedimiento de ponderación no
+normalizado descrito anteriormente, encontramos un ATT estimado de 11876
+dólares. Utilizando la normalización de las ponderaciones, se obtiene
+7238 dólares promedio. De esta forma, se estan ponderando las unidades
+de tratamiento y control según <span
+class="math inline">\(\widehat{p}(X)\)</span> lo que hace que las
+unidades con valores muy pequeños de la puntuación de propensión se
+disparen y sean inusualmente influyentes en el cálculo del ATT. Por lo
+tanto, una opción para lidiar con este problema es recortar los datos.
+En este caso, se realizó un recorte para eliminar la masa de valores en
+la cola de la izquierda y, manteniendo sólo los valores cuyos PS están
+entre 0,1 y 0,9, se obtiene un promedio de 2006 dólares utilizando los
+pesos no normalizados y 1806 dólares utilizando los pesos normalizados.
+Estos valores son muy similares a lo que sabemos que es el verdadero
+efecto causal utilizando los datos experimentales (1794 dólares).
+Finalmente, se evidencia que las ponderaciones normalizadas están aún
+más cerca de los valores experimentales.
+<div/>
+<p><br></p>
+</div>
+<div id="referencias" class="section level4">
+<h4>3. Referencias</h4>
+<div style="text-align: justify">
+Krueger, Alan. 1999. “Experimental Estimates of Education Production
+Functions.” Quarterly Journal of Economics 114 (2): 497–532.
+<div/>
+<p><br></p>
+<div style="text-align: justify">
+Rubin, Donald B. 1977. “Assignment to Treatment Group on the Basis of a
+Covariate.” Journal of Educational Statistics 2: 1–26.
+<div/>
+<p><br></p>
+<div style="text-align: justify">
+Lalonde, Robert. 1986. “Evaluating the Econometric Evaluations of
+Training Programs with Experimental Data.” American Economic Review 76
+(4): 604–20.
+<div/>
+<p><br></p>
+<div/>
+<div style="text-align: justify">
+Dehejia, Rajeev H., and Sadek Wahba. 1999. “Causal Effects in
+Nonexperimental Studies: Reevaluating the Evaluation of Training
+Programs.” Journal of the American Statistical Association 94 (448):
+1053–62.
+<div/>
+<p><br></p>
+<div style="text-align: justify">
+Dehejia, Rajeev H., and Sadek Wahba.2002. “Propensity Score-Matching
+Methods for Nonexperimental Causal Studies.” Review of Economics and
+Statistics 84 (1): 151–61.
+<div/>
+<p><br></p>
+<div style="text-align: justify">
+Imbens, Guido W. 2000. “The Role of the Propensity Score in Estimating
+Dose-Response Functions.” Biometrika 87 (3): 706–10.
+<div/>
+<p><br></p>
+<div style="text-align: justify">
+Hirano, Keisuke, and Guido W. Imbens. 2001. “Estimation of Causal
+Effects Using Propensity Score Weighting: An Application to Data on
+Right Heart Catheterization.” Health Services and Outcomes Research
+Methodology 2: 259–78.
+<div/>
+<p><br></p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
